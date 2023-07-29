@@ -1,0 +1,72 @@
+* {
+    border: none;
+}
+
+a:link, a:visited{
+    color: inherit;
+}
+
+.quote-div {
+    margin: auto;
+    text-align: center;
+    width: 500px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+#quote-box {
+    width: 90%;
+    margin: 20px auto 10px;
+    padding: 30px;
+    background-color: white;
+}
+
+.quote-text {
+    font-size: 1.5rem;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px 10px;
+}
+
+#quote-author {
+    text-align: right;
+    padding: 30px 10px;
+}
+
+.button {
+    font-size: 1.3rem;
+    margin: 5px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.button-left {
+    float: left;
+}
+
+.button-right {
+    float: right;
+    
+}
+
+.button-next {
+    font-size: 0.9rem;
+    border-radius: 5px;
+    padding: 10px 5px;
+    width: 25%;
+    height: 40px;
+    color: white;
+}
+
+
+.quoter-footer {
+    text-align: center;
+    color: white;
+}
