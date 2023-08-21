@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+    <body>
+        <div id="drum-machine">
+            <div class="pad-container">
+                <div class="drum-pad" id="heater1" onclick="handleAudio('heater1')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" id="Q" class="clip"></audio>
+                    Q
+                </div>
+                <div class="drum-pad" id="heater2" onclick="handleAudio('heater2')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3" id="W" class="clip"></audio>
+                    W
+                </div>
+                <div class="drum-pad" id="heater3" onclick="handleAudio('heater3')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3" id="E" class="clip"></audio>
+                    E
+                </div>
+                <div class="drum-pad" id="heater4" onclick="handleAudio('heater4')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3" id="A" class="clip"></audio>
+                    A
+                </div>
+                <div class="drum-pad" id="clap" onclick="handleAudio('clap')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3" id="S" class="clip"></audio>
+                    S
+                </div>
+                <div class="drum-pad" id="openHH" onclick="handleAudio('openHH')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" id="D" class="clip"></audio>
+                    D
+                </div>
+                <div class="drum-pad" id="kickNHat" onclick="handleAudio('kickNHat')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3" id="Z" class="clip"></audio>
+                    Z
+                </div>
+                <div class="drum-pad" id="kick" onclick="handleAudio('kick')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3" id="X" class="clip"></audio>
+                    X
+                </div>
+                <div class="drum-pad" id="closedHH" onclick="handleAudio('closedHH')">
+                    <audio src="https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3" id="C" class="clip"></audio>
+                    C
+                </div>
+            </div>
+            <div class="control-container">
+                <!-- TODO -->
+                <div class="blank"></div>
+                <p id="display"></p>
+            </div>
+        </div>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+        <script src="drum.js"></script>
+    </body>
+</html>
