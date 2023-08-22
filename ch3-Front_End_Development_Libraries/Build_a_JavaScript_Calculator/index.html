@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <title>Javascript Calculator</title>
+    </head>
+    <body>
+        <div class="calculator">
+            <div class="buttons">
+                <div class="display">
+                    <div class="screen" id="display">0</div>
+                    <div class="screen" id="display-button"></div>
+                </div>
+                <button id="clear" class="button button-ac" onclick="resetVal()">C</button>
+                
+                <button id="seven" class="button button-number" onclick="insertVal('7')">7</button>
+                <button id="eight" class="button button-number" onclick="insertVal('8')">8</button>
+                <button id="nine" class="button button-number" onclick="insertVal('9')">9</button>
+                <button id="add" class="button button-operator" onclick="insertOperator('+')">+</button>
+
+                <button id="four" class="button button-number" onclick="insertVal('4')">4</button>
+                <button id="five" class="button button-number" onclick="insertVal('5')">5</button>
+                <button id="six" class="button button-number" onclick="insertVal('6')">6</button>
+                <button id="subtract" class="button button-operator" onclick="insertOperator('-')">-</button>
+                
+                <button id="one" class="button button-number" onclick="insertVal('1')">1</button>
+                <button id="two" class="button button-number" onclick="insertVal('2')">2</button>
+                <button id="three" class="button button-number" onclick="insertVal('3')">3</button>
+                <button id="multiply" class="button button-operator" onclick="insertOperator('*')">*</button>
+
+                <button id="decimal" class="button button-number" onclick="insertVal('.')">.</button>
+                <button id="zero" class="button button-number" onclick="insertVal('0')">0</button>
+                <button id="equals" class="button button-submit" onclick="submit()">=</button>
+                <button id="divide" class="button button-operator" onclick="insertOperator('/')">/</button>
+            </div>
+        </div>
+        <div class="creator">by <a href="https://github.com/voldemort92205/freeCodeCamp-practice/tree/main" alt="home page" target="_blank">Perry</a></div>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+        <script src="calculator.js"></script>
+    </body>
+</html>
