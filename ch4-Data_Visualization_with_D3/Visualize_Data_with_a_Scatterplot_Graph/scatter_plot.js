@@ -2,8 +2,8 @@
 var gDataJSON;
 var gData;
 
-const width = 600;
-const height = 350;
+const widthMax = 600;
+const heightMax = 400;
 
 const noDopingColor = "orange",
         dopingColor = "blue";
@@ -11,12 +11,14 @@ const noDopingColor = "orange",
 const dotR = "5";
     
 const margin = {
-    top: 20,
-    bottom: 40,
-    left: 20,
-    right: 0,
+    top: 50,
+    bottom: 30,
+    left: 60,
+    right: 30,
 }
 
+const width = widthMax - margin.left - margin.right;
+const height = heightMax - margin.top - margin.bottom;
 
 function preProcessData() {
     gData = gDataJSON;
@@ -50,11 +52,11 @@ function updateDate () {
 
     const xScale = d3.scaleLinear()
             .domain([xMin, xMax])
-            .range([margin.top+margin.bottom, width]);
+            .range([0, width]);
 
     const yScale = d3.scaleLinear()
             .domain(d3.extent(gData, (d) => d.TimeObj))
-            .range([height+margin.top, 0]);
+            .range([height, 0]);
 
 
     const MSFormat = d3.timeFormat("%M:%S")
@@ -67,18 +69,20 @@ function updateDate () {
 
     let svg = d3.select(".data_figure")
                 .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .attr("class", "data-container");
+                .attr("width", widthMax)
+                .attr("height", heightMax)
+                .attr("class", "data-container")
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");;
     
     svg.append("g")
-        .attr("transform", "translate(" + 0 + ", " + (height+margin.top) + ")")
+        .attr("transform", "translate(" + 0 + ", " + (height) + ")")
         .call(d3.axisBottom(xScale))
         .attr("id", "x-axis")
         .attr("class", "tick")
 
     svg.append("g")
-        .attr("transform", "translate(" + (margin.top+margin.bottom) + ", " +  0 + ")")
+        .attr("transform", "translate(" + 0 + ", " +  0 + ")")
         .call(d3.axisLeft(yScale).tickFormat(MSFormat))
         .attr("id", "y-axis")
         .attr("class", "tick")
@@ -87,16 +91,36 @@ function updateDate () {
         .text("Time (minute)")
         .attr("transform", "rotate(-90)")
         .attr("x", -(height/2))
-        .attr("y", 10)
+        .attr("y", -50)
     
     svg.append("text")
         .text("Year")
         .attr("x", width/2)
-        .attr("y", height+(margin.bottom+margin.top))
+        .attr("y", height + margin.bottom)
         .attr("class", "info")
         .style("font-size", "1rem")
 
+    // plot title
+    svg.append("text")
+        .attr("id", "title")
+        .text("Doping in Professional Bicycle Racing")
+        .attr("x", width/2)
+        .attr("y", -margin.top/2)
+        .style("class", "title")
+        .style("font-size", "25px")
+        .attr("text-anchor", "middle")
 
+    svg.append("text")
+        .attr("class", "subtitle")
+        .text("35 Fastest times up Alpe d'Huez")
+        .attr("x", width/2)
+        .attr("y", -margin.top/2+30)
+        .style("font-size", "16px")
+        .attr("text-anchor", "middle")
+
+
+
+    // plot legend
     let legendSVG = svg.append("g")
                         .attr("id", "legend")
     

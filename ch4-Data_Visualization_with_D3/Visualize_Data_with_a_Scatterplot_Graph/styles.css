@@ -2,14 +2,6 @@
     border: none;
 }
 
-:root {
-    --session-btns-height: 35px;
-    --btn-size: 1.5rem;
-    --btn-hover-size: 1.7rem;
-
-    --timer-font-size: 3rem;
-}
-
 body {
     background-color: #2c5d63;
 
@@ -36,26 +28,10 @@ body {
     justify-content: center;
 }
 
-.title {
-    font-size: 1.6rem;
-    margin: 10px auto 0px;
-    text-align: center;
-}
-
-.sub_title {
-    margin: 5px auto 20px;
-    text-align: center;
-}
-
-
 .data_figure {
     margin: 5px auto;
     display: flex;
     justify-content: center;
-}
-
-.bar:hover {
-    fill: white;
 }
 
 #tooltip {
