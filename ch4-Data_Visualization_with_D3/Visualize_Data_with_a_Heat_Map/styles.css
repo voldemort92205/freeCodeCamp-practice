@@ -52,3 +52,7 @@ body {
     font-size: 0.7rem;
 }
 
+.cell:hover {
+    stroke-width: 2;
+    stroke: black;
+}

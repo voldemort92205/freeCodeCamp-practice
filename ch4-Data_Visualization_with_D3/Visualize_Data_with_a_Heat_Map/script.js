@@ -7,7 +7,7 @@ const heightMax = 500;
     
 const margin = {
     top: 80,
-    bottom: 70,
+    bottom: 80,
     left: 60,
     right: 30,
 }
@@ -17,32 +17,45 @@ let barWidth = 0, barHeight = 0;
 
 const jetColor = [
     "#00007f",
-    "#0000ac",
-    "#0000da",
-    "#0000ff",
-    "#0020ff",
-    "#0048ff",
-    "#0070ff",
+    "#00009f",
+    "#0000bf",
+    "#0000de",
+    "#0000fe",
+    "#000cff",
+    "#0028ff",
+    "#0044ff",
+    "#0060ff",
+    "#007cff",
     "#0098ff",
-    "#00c0ff",
-    "#02e8f4",
-    "#22ffd4",
-    "#42ffb3",
-    "#63ff93",
-    "#83ff73",
+    "#00b4ff",
+    "#00d0ff",
+    "#05ecf1",
+    "#1cffda",
+    "#32ffc3",
+    "#49ffad",
+    "#5fff96",
+    "#76ff80",
+    "#8dff69",
     "#a3ff53",
-    "#c3ff32",
-    "#e4ff12",
-    "#ffe500",
-    "#ffc000",
-    "#ff9b00",
-    "#ff7600",
+    "#baff3c",
+    "#d0ff25",
+    "#e7ff0f",
+    "#feed00",
+    "#ffd300",
+    "#ffb900",
+    "#ff9f00",
+    "#ff8500",
+    "#ff6b00",
     "#ff5100",
-    "#ff2c00",
-    "#f10700",
-    "#c30000",
-    "#960000",
+    "#ff3700",
+    "#ff1d00",
+    "#ec0300",
+    "#cc0000",
+    "#ac0000",
+    "#8d0000",        
 ]
+const colorScaleBase = 15; // handel scale
+
 
 function preProcessData() {
     gData = gDataJSON["monthlyVariance"];
@@ -59,7 +72,6 @@ function preProcessData() {
         variance
         year
     */
-   console.log(gData[0])
 }
 
 
@@ -70,8 +82,8 @@ function updateDate () {
             xMax = d3.max(gData, (d) => d["year"]+1),
             yMin = 1,
             yMax = 13
-            tMin = d3.min(gData, (d) => d["temp"]),
-            tMax = d3.max(gData, (d) => d["temp"]);
+            tMin = 2.,
+            tMax = 12.3;
     barWidth = width / (xMax-xMin-1)
     barHeight = height / 12;
 
@@ -83,11 +95,10 @@ function updateDate () {
             .domain([yMin, yMax])
             .range([0, height]);
 
-    /* generate color map range */
-    
+    /* generate color map range */    
     const tempScale = d3.scaleLinear()
                 .domain([tMin, tMax])
-                .range([0, jetColor.length])
+                .range([0, jetColor.length * colorScaleBase])
 
     let tooltip = d3.select(".data_figure")
                     .append("div")
@@ -108,9 +119,17 @@ function updateDate () {
         .attr("id", "x-axis")
         .attr("class", "tick")
 
+    const monInd = [1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5];
+    const monName = d3.utcFormat("%b")
     svg.append("g")
         .attr("transform", "translate(" + 0 + ", " +  0 + ")")
-        .call(d3.axisLeft(yScale))
+        .call(d3.axisLeft(yScale)
+                .tickValues(monInd)
+                .tickFormat((d, i) => {
+                    let tmp = new Date(0);
+                    tmp.setMonth(i);
+                    return monName(tmp);
+                }))
         .attr("id", "y-axis")
         .attr("class", "tick")
 
@@ -136,7 +155,6 @@ function updateDate () {
         .style("class", "title")
         .style("font-size", "25px")
         .attr("text-anchor", "middle")
-
         
     svg.append("text")
         .attr("class", "subtitle")
@@ -145,46 +163,43 @@ function updateDate () {
         .attr("y", -margin.top/2+30)
         .style("font-size", "16px")
         .attr("text-anchor", "middle")
+        .attr("id", "description")
 
 
-    // plot legend
-    /*
+    // plot legend: colormap
     let legendSVG = svg.append("g")
                         .attr("id", "legend")
-    
-    legendSVG.selectAll(".legendInfo")
-            .data(legendInfo)
+    legendSVG.append("g")
+        .attr("transform", "translate(" + 0 + ", " + (height+margin.top*0.75) + ")")
+        .call(d3.axisBottom(tempScale))
+        .attr("id", "legend")
+        .attr("class", "legend")
+    legendSVG.selectAll(".legendColor")
+            .data(jetColor)
             .enter()
             .append("rect")
-            .attr("x", width-190)
-            .attr("y", (d, i) => (70+i*25))
-            .attr("width", 10)
-            .attr("height", 10)
-            .attr("fill", (d) => d.color)
+            .attr("x", (d, i) => (0 + i * colorScaleBase))
+            .attr("y", (height+margin.top*0.5))
+            .attr("width", colorScaleBase)
+            .attr("height", 20)
+            .attr("fill", (d) => d)
 
-    legendSVG.selectAll(".legendLabel")
-            .data(legendInfo)
-            .enter()
-            .append("text")
-            .attr("x", width-170)
-            .attr("y", (d, i) => (76+i*25))
-            .text((d) => d.label)
-            .style("font-size", "11px")
-    */
-    svg.selectAll(".dot")
+    // plot data
+    svg.selectAll(".cell")
         .data(gData)
         .enter()
         .append("rect")
         .attr("x", (d, i) => xScale(d["year"]-1))
         .attr("y", (d, i) => yScale(d["month"]))
-        .attr("class", "dot")
-        .attr("data-xvalue", (d, i) => xScale(d["year"]))
-        .attr("data-yvalue", (d, i) => yScale(d["temp"]))
+        .attr("class", "cell")
+        .attr("data-year", (d, i) => d["year"])
+        .attr("data-temp", (d, i) => d["temp"])
+        .attr("data-mon", (d, i) => d["mon"])
         .attr("width", barWidth)
         .attr("height", barHeight)
         .attr("fill", (d, i) => {
             const tmp = d["temp"];
-            return jetColor[Math.floor(tempScale(tmp))]
+            return jetColor[Math.floor(tempScale(tmp)/colorScaleBase)]
         })
         .on("mouseover", (e, d) => {
             let htmlContent = d["year"] + "-" + d3.format("02d")(d["month"]) + "<br>" +
@@ -195,7 +210,7 @@ function updateDate () {
                     .html(htmlContent)
                     .style('left', (e.pageX) + "px")
                     .style('top', (e.pageY - 100) + "px")
-                    //.style('transform', 'translateX(60px)');
+                    .attr("data-year", d["year"])
         })
         .on("mouseleave", (e, d) => {
             tooltip.style("visibility", "hidden")
