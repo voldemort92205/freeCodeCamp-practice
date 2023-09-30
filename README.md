@@ -7,8 +7,9 @@ This repo is to record my skills learned from freeCodeCamp, and here I learn.
 - D3
 
 
-The courses on freeCodeCamp I have completed. 
+The courses on freeCodeCamp I have completed.
 - Responsive Web Design
 - JavaScript Algorithms and Data Structures
 - Front End Development Libraries
 - Data Visualization
+- Back End Development and APIs
